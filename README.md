@@ -33,7 +33,9 @@ python -m flask run -h 0.0.0.0 -p 8042 --reload
 
 Go to http://flip2.engr.oregonstate.edu:8042/ in your browser (change 8042 if necessary)
 
-Type in "Jane Doe" or "John Doe" and you should see the classes they teach.
+Type in "Jane Doe" or "John Doe" and you should see the classes they teach:
+
+![pic](pic.png)
 
 Note: The main Python functions are located within main.py.
 
