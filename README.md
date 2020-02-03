@@ -35,7 +35,7 @@ Go to http://flip2.engr.oregonstate.edu:8042/ in your browser (change 8042 if ne
 
 Type in "Jane Doe" or "John Doe" and you should see the classes they teach:
 
-<img src="https://github.com/laurenshareshian/gradeapp/pic.png">
+<img src="https://github.com/laurenshareshian/gradeapp/blob/master/pic.png">
 
 Note: The main Python functions are located within main.py.
 
