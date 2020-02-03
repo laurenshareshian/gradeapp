@@ -35,7 +35,7 @@ Go to http://flip2.engr.oregonstate.edu:8042/ in your browser (change 8042 if ne
 
 Type in "Jane Doe" or "John Doe" and you should see the classes they teach:
 
-![pic](pic.png)
+![pic]('pic.png')
 
 Note: The main Python functions are located within main.py.
 
