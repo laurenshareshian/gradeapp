@@ -1,9 +1,6 @@
-Instructions for setting up simple grading app on OSU's server:
+Instructions for setting up a simple grading app on OSU's server:
 
-I got most of my instructions from [here](https://github.com/knightsamar/CS340_starter_flask_app).
-
-
-Set up your VPN.
+Make sure your OSU VPN is on.
 
 Log in to flip2:
 ssh {username}@flip2.engr.oregonstate.edu
@@ -33,3 +30,6 @@ Note: The main Python functions are located within main.py.
 To create the database, type "python createdatabase.py"
 
 The form template is located within templates.
+
+
+(Note: I got most of my instructions from [here](https://github.com/knightsamar/CS340_starter_flask_app)).
