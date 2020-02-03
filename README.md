@@ -2,11 +2,11 @@ Instructions for setting up a simple grading app on OSU's server:
 
 Make sure your OSU VPN is on.
 
-Log in to flip2:
+Log in to flip2 by typing the command below or something with Putty? I'm not sure because I don't have a PC.
 
 ssh {username}@flip2.engr.oregonstate.edu
 
-Once you navigate to whatever directory you want this in, type the following into your terminal:
+Once you navigate to whatever directory you want this in on the OSU flip2 server, type the following into your terminal:
 
 git clone https://github.com/laurenshareshian/gradeapp.git
 
