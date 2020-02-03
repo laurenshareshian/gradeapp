@@ -5,6 +5,8 @@ Make sure your OSU VPN is on.
 Log in to flip2:
 ssh {username}@flip2.engr.oregonstate.edu
 
+Once you navigate to whatever directory you want this in, type the following into your terminal:
+
 git clone https://github.com/laurenshareshian/gradeapp.git
 
 cd gradeapp
