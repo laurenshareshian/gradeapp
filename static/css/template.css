@@ -17,3 +17,14 @@ body {
 	padding-top: 2%;
 	padding-bottom: 2%;
 }
+
+.formscontainer
+{
+	display:flex;
+	justify-content: space-around;
+}
+
+.bottomcontainer
+{
+	padding-top: 3%;
+}
