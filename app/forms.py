@@ -44,3 +44,7 @@ class AssignmentForm(FlaskForm):
     date = StringField('Date', validators=[DataRequired()])
     points = StringField('Points', validators=[DataRequired()])
     submit2 = SubmitField('Submit')
+
+class AddCourseForm(FlaskForm):
+    courseName = StringField('Course name', validators=[DataRequired()])
+    submit1 = SubmitField('Submit')
