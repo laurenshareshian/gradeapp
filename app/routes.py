@@ -2,8 +2,8 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, ClassesForm, StudentForm, AssignmentForm
-from app.models import User, Student, Assignment
+from app.forms import LoginForm, RegistrationForm, ClassesForm, StudentForm, AssignmentForm, AddCourseForm
+from app.models import User, Student, Assignment, Course
 import sqlite3
 import sys
 import csv
@@ -22,6 +22,13 @@ dummyassignment1 = Assignment('HW 1', '01-01-2020', 5)
 dummyassignment2 = Assignment('HW 2', '01-02-2020', 10)
 assignments.append(dummyassignment1)
 assignments.append(dummyassignment2)
+
+courses = []
+# eventually we will get these via SQL queries instead
+dummycourse1 = Course('Trig')
+dummycourse2 = Course('Basket Weaving')
+courses.append(dummycourse1)
+courses.append(dummycourse2)
 
 @app.route('/')
 #@app.route('/index')
@@ -128,3 +135,16 @@ def addAssignment():
 	    	print(newassignment.name, newassignment.date, newassignment.points)
 	    	return redirect(url_for('index'))
     return render_template('gradebook.html', addStudentForm=addStudentForm, addAssignmentForm=addAssignmentForm, students=students, assignments=assignments)
+
+### Add Course Form
+@app.route('/addcourse', methods=['GET', 'POST'])
+def addCourse():
+
+    addCourseForm = AddCourseForm()
+
+    if addCourseForm.validate_on_submit():
+    		newcourse = Course(addCourseForm.courseName.data.strip())
+	    	courses.append(newcourse)
+	    	# anything you print here gets printed to your terminal
+	    	print(newcourse.courseName)
+    return render_template('addcourse.html', addCourseForm=addCourseForm, courses=courses)
