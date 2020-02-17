@@ -90,22 +90,6 @@ def getClasses(teacherstring):
 	con.close()
 	return rows
 
-### Renders View Classes Page
-@app.route('/classes', methods=['GET', 'POST'])
-def displayClasses():
-    form = ClassesForm()
-    noresults = False ## keeps track of if SQL query returned results or not
-    classes = []  ## this variable will hold classes obtained from SQL query
-    teacher = None
-    if form.validate_on_submit():
-        # classes = getClasses(form.teachername.data.strip()) # use dummy data for now
-        teacher = form.teachername.data.strip()
-        classes = ['Algebra', 'Geometry', 'Calculus']
-        if(len(classes)==0):
-        	noresults = True     
-    return render_template('classesform.html', form=form, teacher=teacher, classes=classes, noresults=noresults)
-
-
 ### Add Student Form
 @app.route('/addmystudent', methods=['GET', 'POST'])
 def addStudent():
