@@ -100,10 +100,79 @@ def addStudent():
     if addStudentForm.validate_on_submit():
     		newstudent = Student(addStudentForm.first.data.strip(), addStudentForm.last.data.strip(), addStudentForm.email.data.strip()) 
 	    	students.append(newstudent)
-	    	# anything you print here gets printed to your terminal
-	    	print(newstudent.first, newstudent.last, newstudent.email)
 	    	return redirect(url_for('index'))
+
     return render_template('gradebook.html', addStudentForm=addStudentForm, addAssignmentForm=addAssignmentForm, students=students, assignments=assignments)
+
+### Add New Student Form
+@app.route('/addnewstudent', methods=['GET', 'POST'])
+def addNewStudent():
+
+    addStudentForm = StudentForm()
+    return render_template('addnewstudent.html', addStudentForm=addStudentForm)
+
+### Save Add Student
+@app.route('/saveAddStudent', methods=['POST'])
+def saveAddStudent():
+
+    first = request.form['first']
+    last = request.form['last']
+    email = request.form['email']
+
+    newstudent = Student(first, last, email) 
+    students.append(newstudent)      
+
+    addStudentForm = StudentForm()
+    addAssignmentForm = AssignmentForm()
+
+    return render_template('gradebook.html', addStudentForm=addStudentForm, addAssignmentForm=addAssignmentForm, students=students, assignments=assignments)
+
+
+### Edit Student Form
+@app.route('/editstudent/<first>/<last>/<email>', methods=['GET', 'POST'])
+def editStudent(first, last, email):
+    # replace this for loop with database query eventually to find unique studentID
+    for i, student in enumerate(students):
+        if student.email == email:
+            studentID = i
+
+    editStudentForm = StudentForm()
+    return render_template('editstudent.html', editStudentForm=editStudentForm, first=first, last=last, email=email, studentID = studentID)
+
+### Save Student Edits
+@app.route('/saveEditStudent/<studentID>', methods=['POST'])
+def saveEditStudent(studentID):
+
+    studentID = int(studentID)
+    first = request.form['first']
+    last = request.form['last']
+    email = request.form['email']
+
+    # if the user changed any of these, replace them in database
+    if first:
+        students[studentID].first = first
+    if last:
+        students[studentID].last = last
+    if email:
+        students[studentID].email = email        
+
+    addStudentForm = StudentForm()
+    addAssignmentForm = AssignmentForm()
+
+    return render_template('gradebook.html', addStudentForm=addStudentForm, addAssignmentForm=addAssignmentForm, students=students, assignments=assignments)
+
+### Delete Student
+@app.route('/deleteStudent/<studentID>', methods=['POST'])
+def deleteStudent(studentID):
+
+    studentID = int(studentID)
+    del students[studentID]
+
+    addStudentForm = StudentForm()
+    addAssignmentForm = AssignmentForm()
+
+    return render_template('gradebook.html', addStudentForm=addStudentForm, addAssignmentForm=addAssignmentForm, students=students, assignments=assignments)
+
 
 ### Add Assignment Form
 @app.route('/addmyassignment', methods=['GET', 'POST'])
@@ -119,6 +188,78 @@ def addAssignment():
 	    	print(newassignment.name, newassignment.date, newassignment.points)
 	    	return redirect(url_for('index'))
     return render_template('gradebook.html', addStudentForm=addStudentForm, addAssignmentForm=addAssignmentForm, students=students, assignments=assignments)
+
+
+### Add New Assignment Form
+@app.route('/addnewassignment', methods=['GET', 'POST'])
+def addNewAssignment():
+
+    addAssignmentForm = AssignmentForm()
+    return render_template('addnewassignment.html', addAssignmentForm=addAssignmentForm)
+
+### Save Add Assignment
+@app.route('/saveAddAssignment', methods=['POST'])
+def saveAddAssignment():
+
+    name = request.form['name']
+    date = request.form['date']
+    points = request.form['points']
+
+    newassignment = Assignment(name, date, points) 
+    assignments.append(newassignment)      
+
+    addStudentForm = StudentForm()
+    addAssignmentForm = AssignmentForm()
+
+    return render_template('gradebook.html', addStudentForm=addStudentForm, addAssignmentForm=addAssignmentForm, students=students, assignments=assignments)
+
+
+### Edit Assignment Form
+@app.route('/editassignment/<name>/<date>/<points>', methods=['GET', 'POST'])
+def editAssignment(name, date, points):
+    # replace this for loop with database query eventually to find unique assignmentID
+    for i, assignment in enumerate(assignments):
+        if assignment.name == name:
+            assignmentID = i
+
+    editAssignmentForm = AssignmentForm()
+    return render_template('editassignment.html', editAssignmentForm=editAssignmentForm, name=name, date=date, points=points, assignmentID=assignmentID)
+
+### Save Assignment Edits
+@app.route('/saveEditAssignment/<assignmentID>', methods=['POST'])
+def saveEditAssignment(assignmentID):
+
+    assignmentID = int(assignmentID)
+    name = request.form['name']
+    date = request.form['date']
+    points = request.form['points']
+
+    # if the user changed any of these, replace them in database
+    if name:
+        assignments[assignmentID].name = name
+    if date:
+        assignments[assignmentID].date = date
+    if points:
+        assignments[assignmentID].points = points     
+
+    addStudentForm = StudentForm()
+    addAssignmentForm = AssignmentForm()
+
+    return render_template('gradebook.html', addStudentForm=addStudentForm, addAssignmentForm=addAssignmentForm, students=students, assignments=assignments)
+
+### Delete Assignment
+@app.route('/deleteAssigment/<assignmentID>', methods=['POST'])
+def deleteAssignment(assignmentID):
+
+    assignmentID = int(assignmentID)
+    del assignments[assignmentID]
+
+    addStudentForm = StudentForm()
+    addAssignmentForm = AssignmentForm()
+
+    return render_template('gradebook.html', addStudentForm=addStudentForm, addAssignmentForm=addAssignmentForm, students=students, assignments=assignments)
+
+
 
 ### Add Course Form
 @app.route('/addcourse', methods=['GET', 'POST'])
