@@ -90,20 +90,6 @@ def getClasses(teacherstring):
 	con.close()
 	return rows
 
-### Add Student Form
-@app.route('/addmystudent', methods=['GET', 'POST'])
-def addStudent():
-
-    addStudentForm = StudentForm()
-    addAssignmentForm = AssignmentForm()
-
-    if addStudentForm.validate_on_submit():
-    		newstudent = Student(addStudentForm.first.data.strip(), addStudentForm.last.data.strip(), addStudentForm.email.data.strip()) 
-	    	students.append(newstudent)
-	    	return redirect(url_for('index'))
-
-    return render_template('gradebook.html', addStudentForm=addStudentForm, addAssignmentForm=addAssignmentForm, students=students, assignments=assignments)
-
 ### Add New Student Form
 @app.route('/addnewstudent', methods=['GET', 'POST'])
 def addNewStudent():
@@ -172,23 +158,6 @@ def deleteStudent(studentID):
     addAssignmentForm = AssignmentForm()
 
     return render_template('gradebook.html', addStudentForm=addStudentForm, addAssignmentForm=addAssignmentForm, students=students, assignments=assignments)
-
-
-### Add Assignment Form
-@app.route('/addmyassignment', methods=['GET', 'POST'])
-def addAssignment():
-
-    addStudentForm = StudentForm()
-    addAssignmentForm = AssignmentForm()
-
-    if addAssignmentForm.validate_on_submit():
-    		newassignment = Assignment(addAssignmentForm.name.data.strip(), addAssignmentForm.date.data.strip(), addAssignmentForm.points.data.strip()) 
-	    	assignments.append(newassignment)
-	    	# anything you print here gets printed to your terminal
-	    	print(newassignment.name, newassignment.date, newassignment.points)
-	    	return redirect(url_for('index'))
-    return render_template('gradebook.html', addStudentForm=addStudentForm, addAssignmentForm=addAssignmentForm, students=students, assignments=assignments)
-
 
 ### Add New Assignment Form
 @app.route('/addnewassignment', methods=['GET', 'POST'])
