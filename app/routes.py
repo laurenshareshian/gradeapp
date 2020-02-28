@@ -38,9 +38,21 @@ def index():
     addAssignmentForm = AssignmentForm()
     return render_template('gradebook.html', addStudentForm=addStudentForm, addAssignmentForm=addAssignmentForm, students=students, assignments=assignments)
 
+
+### Delete eventually - just basic example showing database query
+### Get students via SQL query
+def getStudents(studentemail):
+    con = sqlite3.connect("students.db")
+    student = "SELECT * FROM students WHERE email=:email"
+    cursor = con.execute(student, {"email": studentemail})
+    rows = cursor.fetchall()
+    con.close()
+    return rows
+
 ### About Tab
 @app.route("/about")
 def about():
+    print(getStudents('doe@gmail.com')). # delete later - just database example
     return render_template("about.html")
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -84,8 +96,8 @@ def register():
 ### Get classes via SQL query
 def getClasses(teacherstring):
 	con = sqlite3.connect("grades.db")
-	molecule = "SELECT * FROM grades WHERE teacher=:teacher"
-	cursor = con.execute(molecule, {"teacher": teacherstring})
+	teacher = "SELECT * FROM grades WHERE teacher=:teacher"
+	cursor = con.execute(teacher, {"teacher": teacherstring})
 	rows = cursor.fetchall()
 	con.close()
 	return rows
