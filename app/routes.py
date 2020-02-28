@@ -52,7 +52,7 @@ def getStudents(studentemail):
 ### About Tab
 @app.route("/about")
 def about():
-    print(getStudents('doe@gmail.com')). # delete later - just database example
+    print(getStudents('doe@gmail.com')) # delete later - just database example
     return render_template("about.html")
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -120,10 +120,7 @@ def saveAddStudent():
     newstudent = Student(first, last, email) 
     students.append(newstudent)      
 
-    addStudentForm = StudentForm()
-    addAssignmentForm = AssignmentForm()
-
-    return render_template('gradebook.html', addStudentForm=addStudentForm, addAssignmentForm=addAssignmentForm, students=students, assignments=assignments)
+    return redirect(url_for('index'))
 
 
 ### Edit Student Form
@@ -154,10 +151,7 @@ def saveEditStudent(studentID):
     if email:
         students[studentID].email = email        
 
-    addStudentForm = StudentForm()
-    addAssignmentForm = AssignmentForm()
-
-    return render_template('gradebook.html', addStudentForm=addStudentForm, addAssignmentForm=addAssignmentForm, students=students, assignments=assignments)
+    return redirect(url_for('index'))
 
 ### Delete Student
 @app.route('/deleteStudent/<studentID>', methods=['POST'])
@@ -166,10 +160,7 @@ def deleteStudent(studentID):
     studentID = int(studentID)
     del students[studentID]
 
-    addStudentForm = StudentForm()
-    addAssignmentForm = AssignmentForm()
-
-    return render_template('gradebook.html', addStudentForm=addStudentForm, addAssignmentForm=addAssignmentForm, students=students, assignments=assignments)
+    return redirect(url_for('index'))
 
 ### Add New Assignment Form
 @app.route('/addnewassignment', methods=['GET', 'POST'])
@@ -189,10 +180,7 @@ def saveAddAssignment():
     newassignment = Assignment(name, date, points) 
     assignments.append(newassignment)      
 
-    addStudentForm = StudentForm()
-    addAssignmentForm = AssignmentForm()
-
-    return render_template('gradebook.html', addStudentForm=addStudentForm, addAssignmentForm=addAssignmentForm, students=students, assignments=assignments)
+    return redirect(url_for('index'))
 
 
 ### Edit Assignment Form
@@ -223,10 +211,7 @@ def saveEditAssignment(assignmentID):
     if points:
         assignments[assignmentID].points = points     
 
-    addStudentForm = StudentForm()
-    addAssignmentForm = AssignmentForm()
-
-    return render_template('gradebook.html', addStudentForm=addStudentForm, addAssignmentForm=addAssignmentForm, students=students, assignments=assignments)
+    return redirect(url_for('index'))
 
 ### Delete Assignment
 @app.route('/deleteAssigment/<assignmentID>', methods=['POST'])
@@ -235,10 +220,7 @@ def deleteAssignment(assignmentID):
     assignmentID = int(assignmentID)
     del assignments[assignmentID]
 
-    addStudentForm = StudentForm()
-    addAssignmentForm = AssignmentForm()
-
-    return render_template('gradebook.html', addStudentForm=addStudentForm, addAssignmentForm=addAssignmentForm, students=students, assignments=assignments)
+    return redirect(url_for('index'))
 
 
 
