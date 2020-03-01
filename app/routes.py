@@ -222,26 +222,6 @@ def deleteAssignment(assignmentID):
 
     return redirect(url_for('index'))
 
-
-# Dennis Original
-# ### Add Course Form
-# @app.route('/addcourse', methods=['GET', 'POST'])
-# def addCourse():
-
-#     addCourseForm = AddCourseForm()
-
-#     if addCourseForm.validate_on_submit():
-#         newcourse = Course(addCourseForm.courseName.data.strip())
-#         courses.append(newcourse)
-#         return redirect(url_for('renderCourses'))
-#     return render_template('addcourse.html', addCourseForm=addCourseForm, courses=courses)
-
-
-# @app.route('/courses', methods=['GET', 'POST'])
-# def renderCourses():
-#     return render_template('courses.html', courses=courses)
-
-#Dennis Tweaked
 @app.route('/addcourse', methods=['GET', 'POST'])
 def addCourse():
     addCourseForm = AddCourseForm()
@@ -257,4 +237,37 @@ def saveAddCourse():
     name = request.form['courseName']
     newcourse = Course(name)
     courses.append(newcourse)    
+    return redirect(url_for('renderCourses'))
+
+### Edit Course Form
+@app.route('/editcourse/<courseName>', methods=['GET', 'POST'])
+def editCourse(courseName):
+    # replace this for loop with database query eventually to find unique courseID
+    for i, course in enumerate(courses):
+        if course.courseName == courseName:
+            courseID = i
+
+    editCourseForm = AddCourseForm()
+    return render_template('editcourse.html', editCourseForm=editCourseForm, courseName=courseName, courseID=courseID)
+
+### Save Course Edits
+@app.route('/saveEditCourse/<courseID>', methods=['POST'])
+def saveEditCourse(courseID):
+
+    courseID = int(courseID)
+    courseName = request.form['courseName']
+
+    # if the user changed any of these, replace them in database
+    if courseName:
+        courses[courseID].courseName = courseName 
+
+    return redirect(url_for('renderCourses'))
+
+### Delete Course
+@app.route('/deleteCourse/<courseID>', methods=['POST'])
+def deleteCourse(courseID):
+
+    courseID = int(courseID)
+    del courses[courseID]
+
     return redirect(url_for('renderCourses'))
