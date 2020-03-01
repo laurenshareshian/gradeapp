@@ -236,3 +236,8 @@ def addCourse():
         courses.append(newcourse)
         return render_template('courses.html', courses=courses)
     return render_template('addcourse.html', addCourseForm=addCourseForm, courses=courses)
+
+
+@app.route('/courses', methods=['GET', 'POST'])
+def renderCourses():
+    return render_template('courses.html', courses=courses)
