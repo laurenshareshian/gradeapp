@@ -223,21 +223,38 @@ def deleteAssignment(assignmentID):
     return redirect(url_for('index'))
 
 
+# Dennis Original
+# ### Add Course Form
+# @app.route('/addcourse', methods=['GET', 'POST'])
+# def addCourse():
 
-### Add Course Form
+#     addCourseForm = AddCourseForm()
+
+#     if addCourseForm.validate_on_submit():
+#         newcourse = Course(addCourseForm.courseName.data.strip())
+#         courses.append(newcourse)
+#         return redirect(url_for('renderCourses'))
+#     return render_template('addcourse.html', addCourseForm=addCourseForm, courses=courses)
+
+
+# @app.route('/courses', methods=['GET', 'POST'])
+# def renderCourses():
+#     return render_template('courses.html', courses=courses)
+
+#Dennis Tweaked
 @app.route('/addcourse', methods=['GET', 'POST'])
 def addCourse():
-
     addCourseForm = AddCourseForm()
-
-    if addCourseForm.validate_on_submit():
-        newcourse = Course(addCourseForm.courseName.data.strip())
-        courses.append(newcourse)
-        return redirect(url_for('renderCourses', courses=courses)) #added courses argument
-    return render_template('addcourse.html', addCourseForm=addCourseForm, courses=courses)
-
+    return render_template('addcourse.html', addCourseForm=addCourseForm)
 
 @app.route('/courses', methods=['GET', 'POST'])
 def renderCourses():
-    print(courses)
     return render_template('courses.html', courses=courses)
+
+@app.route('/saveAddCourse', methods=['POST'])
+def saveAddCourse():
+
+    name = request.form['courseName']
+    newcourse = Course(name)
+    courses.append(newcourse)    
+    return redirect(url_for('renderCourses'))
