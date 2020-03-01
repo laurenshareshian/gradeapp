@@ -231,12 +231,8 @@ def addCourse():
     addCourseForm = AddCourseForm()
 
     if addCourseForm.validate_on_submit():
+        print('added')
         newcourse = Course(addCourseForm.courseName.data.strip())
         courses.append(newcourse)
-        return redirect(url_for('renderCourses'))
+        return render_template('courses.html', courses=courses)
     return render_template('addcourse.html', addCourseForm=addCourseForm, courses=courses)
-
-
-@app.route('/courses', methods=['GET', 'POST'])
-def renderCourses():
-    return render_template('courses.html', courses=courses)
